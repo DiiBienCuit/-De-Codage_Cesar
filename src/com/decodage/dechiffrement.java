@@ -35,6 +35,73 @@ public class dechiffrement {
 		 EventQueue.invokeLater(new Runnable() {
 	            @Override
 	            public void run() {
+	            	boolean cle_connue = false;
+	            	String cle_entered = "";
+	            	int cle_cesar = -1;
+	            	String cle_vigenere = "";
+	            	Scanner sc = new Scanner(System.in);
+	            	int choix = 0;
+	            	
+	            	//ask the user if he knows the decode method
+	            	do{
+	            		System.out.println("------------------MENU------------------");
+	            		System.out.println("1: Codage Cesar");
+	            		System.out.println("2: Codage Veginere");
+	            		System.out.println("3: Je ne sais pas :(");
+	            		System.out.println("----------------------------------------");
+	            		System.out.println("Veuillez choisir la methode de decodage:");
+	            		choix = sc.nextInt();
+	            		if(choix != 1 && choix !=2 && choix != 3){
+	            			System.out.println("---!---!---!---ERROR---!---!---!---");
+	            			System.out.println("Veuillez entrez integer 1, 2 ou 3!!");
+	      
+	            		}
+	            	}while(choix != 1 && choix !=2 && choix != 3);
+	            	
+	            	//ask the user if he knows the decoding key
+	            	if(choix == 2 || choix == 1){
+	            		
+	            		/*
+	            		 * Strange hereeeeeeeeeeeeeeeeeee!!!!! 
+	            		 */
+	            		do{
+	            			cle_entered = sc.nextLine();
+		            		System.out.println("----------------------------------------");
+		            		System.out.println("[Dechiffrement] Connaissez-vous la clé pour déchiffrer? (Entrez Y pour Oui, N pour Non)");
+		            		cle_entered = cle_entered.toUpperCase();
+		            		System.out.println(cle_entered);
+		            		
+		            	}while(cle_entered != "Y" && cle_entered != "N");
+		            	
+		            	if(cle_entered == "Y"){
+		            		cle_connue = true;
+		            		
+		            		switch(choix){
+		            		case 1:
+		            			do{
+		            				System.out.println("[Dechiffrement] Entrez la cle (qui sera un entier positive)");
+				            		cle_cesar = sc.nextInt();
+				            		System.out.println(cle_cesar);
+		            			}while(cle_cesar < 0);
+		            			
+		            			break;
+		            		case 2: 
+		            			do{
+		            				cle_vigenere = sc.nextLine();
+		            				System.out.println("[Dechiffrement] Entrez la cle (qui sera une string)");
+		            				cle_vigenere = cle_vigenere.toUpperCase();
+				            		System.out.println(cle_cesar);
+		            			}while(cle_cesar < 0);
+		            			break;
+		            		default: break;
+		            		}
+		            	}else{
+		            		cle_connue = false;
+		            	}
+	            	}else{
+	            		//@TODO
+	            	}
+	            	
 	                try {
 	                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -60,7 +127,7 @@ public class dechiffrement {
         private JFileChooser chooser;
 
         public TestPane() {
-        	//CHANGE THIS LAYOUT!!
+        	
             setLayout(new BorderLayout());
          
             open = new JButton("Choissisez votre fichier txt");
@@ -142,7 +209,7 @@ public class dechiffrement {
 	                    		
 	                    		//export the final file coded
 	                    		try{
-	              
+	                    				
 	                    				File r = new File("C:\\Users\\I336796\\Desktop\\FileDecoded.txt");
 	                    				FileWriter pw = new FileWriter(r);
 	                    				pw.write(toByte.AsciiToString(list));

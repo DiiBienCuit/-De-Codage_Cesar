@@ -70,7 +70,6 @@ public class Chiffrement{
             		if(choix != 1 && choix !=2){
             			System.out.println("---!---!---!---ERROR---!---!---!---");
             			System.out.println("Veuillez entrez integer 1 ou 2!!");
-            			System.out.println("");
             		}
             	}while(choix != 1 && choix !=2);
             	System.out.println("----------------------------------------");
