@@ -1,7 +1,6 @@
 package com.decodage;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -10,67 +9,37 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 
-import com.decodage.TestPane;
-
-public class dechiffrement {
-	
-	public static void main(String args[]) {
-		new dechiffrement();
-	}
-	
-	public dechiffrement(){
-		 EventQueue.invokeLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                try {
-	                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-	                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-	                    ex.printStackTrace();
-	                }
-	                
-	                //define and add the java frame for GUI
-	                JFrame frame = new JFrame("Dechiffrement");
-	                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	                frame.add(new TestPane());
-	                frame.pack();
-	                frame.setLocationRelativeTo(null);
-	                frame.setVisible(true);
-	            }
-	        });
-	}
-	
 	//define the class of the Test Panel
     public class TestPane extends JPanel {
 
         private JButton open;
         private JTextArea textArea;
+        private JButton dec_btn;
+        private JTextArea dec_text;
         private JFileChooser chooser;
+        private int decalage;
+        private String cle;
+        private int choix;
 
-        public TestPane() {
-        	//CHANGE THIS LAYOUT!!
+        public TestPane(int decalage,String cle, int choix) {
+        	this.decalage = decalage;
+        	this.cle = cle;
+        	this.choix = choix;
+        	
             setLayout(new BorderLayout());
-         
             open = new JButton("Choissisez votre fichier txt");
             textArea = new JTextArea(20, 40);
-         
             add(new JScrollPane(textArea));
             add(open, BorderLayout.SOUTH);
-            
-            //add(new JScrollPane(dec_text));
-            //add(dec_btn, BorderLayout.SOUTH);
 
             open.addActionListener(new ActionListener() {
                 @Override
@@ -78,7 +47,6 @@ public class dechiffrement {
 
                 public void actionPerformed(ActionEvent e) {
             
-            System.out.println("1. Importez votre fichier a dechiffrer: \n");
                     if (chooser == null) {
                         chooser = new JFileChooser();
                         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -101,8 +69,8 @@ public class dechiffrement {
                             try (BufferedReader br = new BufferedReader(new FileReader(chooser.getSelectedFile()))) {
                                 textArea.setText(null);
                                 String text = null;
-                                StringBuilder sb = new StringBuilder("");
-                                //show the initial message
+                                StringBuilder sb = new 
+                                        StringBuilder("");
                                 textArea.append("Votre message initial est:\n");
                                 textArea.append("\n");
                                 while ((text = br.readLine()) != null) {
@@ -115,35 +83,35 @@ public class dechiffrement {
                                 StringToAscii toByte = new StringToAscii(sb);
                       		  
 	                            ArrayList<Integer> list = new ArrayList<Integer>();
-
-	                    		textArea.append("\n");
-	                    		textArea.append("----------------------------------------\n");
-	                    		textArea.append("\n");
-	                    		toByte.count_frequence();
-	                    		toByte.getFreqencyHashMap();
+	                            String path = "";
+	                            //mode : cesar
+	                            if(choix == 1){
+	                            	toByte.getDecalage(decalage);
+	 	                    		list = toByte.code();
+	 	                    		textArea.append("\n");
+	 	                    		textArea.append("----------------------------------------\n");
+	 	                    		textArea.append("\n");
+	 	                    		textArea.append("Avec un decalage de " + decalage + ", \n");
+	 	                    		textArea.append("votre message apres etre code est:\n");
+	 	                    		textArea.append("\n");
+	 	                    		textArea.append(toByte.AsciiToString(list));
+	 	                    		path = "C:\\Users\\I336796\\Desktop\\FileCoded_cesar.txt";
+	                            }else if (choix == 2){
+	                            	path = "C:\\Users\\I336796\\Desktop\\FileCoded_vigenere.txt";
+	                            }else{
+	                            	System.out.println("How did you get here?");
+	                            }
+	   
+	                           
 	                    		System.out.println("----------------------------------------"); 
-	                    		
-	                    		textArea.append("Le decalage du codage Cesar etait: ");
-	                    		textArea.append(Integer.toString(toByte.calculateDecalage()));
-	                    		textArea.append("----------------------------------------\n");
-	                    		System.out.println("----------------------------------------"); 
-	                    		textArea.append("\n");
-	                    		
-	                    		//show the message decoded
-	                    		list = toByte.code();
-	                    		textArea.append("Votre message apres etre dechiffre est:\n");
-	                    		textArea.append("\n");
-	                    		textArea.append(toByte.AsciiToString(list));
-	                    		System.out.println("\n"); 
-	                    		System.out.println("Votre message apres etre dechiffre:\n"); 
-	                    		System.out.println(toByte.AsciiToString(list)); 
+	                    		System.out.println("Votre message a été codé!");
+	                    		System.out.println("-----!---!---!---GREAT---!---!---!------"); 
 	                    		
 	                    		textArea.setCaretPosition(0);
 	                    		
 	                    		//export the final file coded
 	                    		try{
-	              
-	                    				File r = new File("C:\\Users\\I336796\\Desktop\\FileDecoded.txt");
+	                    				File r = new File(path);
 	                    				FileWriter pw = new FileWriter(r);
 	                    				pw.write(toByte.AsciiToString(list));
 	                    				pw.flush();
@@ -152,6 +120,7 @@ public class dechiffrement {
 	                    				textArea.append("----------------------------------------\n");
 	                    				textArea.append("\n");
 	                    				textArea.append("Fichier avec ce message est genere!\n");
+	                    				System.out.println("Fichier généré avec succes à: "+ path);
 	                    				}catch(IOException e2){
 	                    					System.err.println(e2);
 	                    				}
@@ -166,5 +135,11 @@ public class dechiffrement {
             });
         }
 
+    public void cesar(){
+    	
+    }
+    
+    public void export(){
+    	
     }
 }
