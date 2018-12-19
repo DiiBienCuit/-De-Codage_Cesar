@@ -97,7 +97,6 @@ public class StringToAscii {
 		}
 		for(char c: sb1.toCharArray()){
 			int counter = 0;
-			
 			//test if the char was already added into the map
 			//public boolean map.containsKey(valueOfAKey)
 			if(c != ' ' && c != ' ' && (c >= 'A' && c <= 'Z')){

@@ -31,35 +31,78 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 
 //main function for code message using methode Cesar
-public class MainFunction{
+public class Chiffrement{
 	
 	//function main
 	public static void main(String args[]) {
-		new MainFunction();
+		new Chiffrement();
 	}
 	
-	public MainFunction() {
+	public Chiffrement() {
 		
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+            	int decalage = -1;
+            	String cle = "";
+            	int choix = 0;
+            	Scanner sc = new Scanner(System.in);
+            	do{
+            		System.out.println("------------------MENU------------------");
+        			
+            		System.out.println("1: Codage Cesar");
+            		System.out.println("2: Codage Veginere");
+            		System.out.println("----------------------------------------");
+            		System.out.println("Veuillez choisir la methode de codage:");
+            		choix = sc.nextInt();
+            		if(choix != 1 && choix !=2){
+            			System.out.println("-----------------ERROR------------------");
+            			System.out.println("Veuillez entrez 1 ou 2!!");
+            			System.out.println("");
+            		}
+            	}while(choix != 1 && choix !=2);
+            	System.out.println("----------------------------------------");
+            	if(choix == 1){
+            		String cod_mode = "[CESAR]";
+                	do{
+                		
+                        System.out.println(cod_mode+" Entrez le nombre de caractere a decaler:");
+                        decalage = sc.nextInt();
+                    }while(decalage < 0);
+            	}else if(choix == 2){
+            		String cod_mode = "[VIGENERE]";
+            		do{
+                        System.out.println(cod_mode+ " Entrez votre cle (en alphabet):");
+                        decalage = sc.nextInt();
+                    }while(decalage < 0);
+            	}else{
+            		System.out.println("Why you are here?");	
+            	}
+            	System.out.println("----------------------------------------");
+            	System.out.println("Importer le fichier à coder:");
                 try {
+                	
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                     ex.printStackTrace();
                 }
                 
                 //define and add the java frame for GUI
-                JFrame frame = new JFrame("CESAR");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.add(new TestPane());
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+                AddPane(decalage,cle);
             }
         });
     }
-
+	
+	public void AddPane(int decalage,String cle){
+		//define and add the java frame for GUI
+        JFrame frame = new JFrame("Codage Cesar & Vigenere");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new TestPane(decalage,cle));
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+	}
+	
 	//define the class of the Test Panel
     public class TestPane extends JPanel {
 
@@ -68,9 +111,12 @@ public class MainFunction{
         private JButton dec_btn;
         private JTextArea dec_text;
         private JFileChooser chooser;
+        private int decalage;
+        private String cle;
 
-        public TestPane() {
-        	//CHANGE THIS LAYOUT!!
+        public TestPane(int decalage,String cle) {
+        	this.decalage = decalage;
+        	this.cle = cle;
             setLayout(new BorderLayout());
            // dec_btn = new JButton("Valider le decalage");
             open = new JButton("Choissisez votre fichier txt");
@@ -87,16 +133,15 @@ public class MainFunction{
                 
 
                 public void actionPerformed(ActionEvent e) {
-                    int decalage = -1;
+                   /* int decalage = -1;
                     
                     //ask for the decalage
             do{
                 Scanner sc = new Scanner(System.in);
                 System.out.println("1. Entrez le nombre de caractere a decaler: \n");
                 decalage = sc.nextInt();
-            }while(decalage < 0);
+            }while(decalage < 0);*/
             
-            System.out.println("2. Importez votre fichier a coder: \n");
                     if (chooser == null) {
                         chooser = new JFileChooser();
                         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -145,15 +190,19 @@ public class MainFunction{
 	                    		textArea.append("votre message apres etre code est:\n");
 	                    		textArea.append("\n");
 	                    		textArea.append(toByte.AsciiToString(list));
-	                    		System.out.println("Votre message apres etre code:\n"); 
-	                    		System.out.println(toByte.AsciiToString(list)); 
+	                    		System.out.println("----------------------------------------"); 
+	                    		System.out.println("Votre message a été codé!");
+	                    		System.out.println("----------------------------------------"); 
+	                    		//System.out.println("Votre message apres etre code:"); 
+	                    		//System.out.println(toByte.AsciiToString(list)); 
 	                    		
 	                    		textArea.setCaretPosition(0);
 	                    		
 	                    		//export the final file coded
 	                    		try{
 	                    				//File r = new File("C:\\Users\\d.cui.13\\Desktop\\FileCoded.txt");
-	                    				File r = new File("C:\\Users\\I336796\\Desktop\\FileCoded.txt");
+	                    				String path = "C:\\Users\\I336796\\Desktop\\FileCoded.txt";
+	                    				File r = new File(path);
 	                    				FileWriter pw = new FileWriter(r);
 	                    				pw.write(toByte.AsciiToString(list));
 	                    				pw.flush();
@@ -162,6 +211,7 @@ public class MainFunction{
 	                    				textArea.append("----------------------------------------\n");
 	                    				textArea.append("\n");
 	                    				textArea.append("Fichier avec ce message est genere!\n");
+	                    				System.out.println("Fichier généré avec succes à:"+ path);
 	                    				}catch(IOException e2){
 	                    					System.err.println(e2);
 	                    				}

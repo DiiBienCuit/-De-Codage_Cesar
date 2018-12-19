@@ -23,7 +23,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 
-import com.decodage.MainFunction.TestPane;
+import com.decodage.Chiffrement.TestPane;
 
 public class dechiffrement {
 	
