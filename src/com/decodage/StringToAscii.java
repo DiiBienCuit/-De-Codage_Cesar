@@ -21,7 +21,7 @@ public class StringToAscii {
 	}
 	
 	//function to set the decalage entered by user
-	public void getDecalage(int decalage){
+	public void setDecalage(int decalage){
 		this.decalage = decalage;
 	} 
 	
@@ -149,7 +149,7 @@ public class StringToAscii {
 		} 
 		decalage = (int)'E' - (int)codedE ;
 		System.out.println("le decalage est : " + -decalage);  
-		this.getDecalage(decalage);
+		this.setDecalage(decalage);
 		return decalage;
 	}
 	
@@ -161,7 +161,7 @@ public class StringToAscii {
 		// translating text String to 7 bit ASCII encoding 
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		int decalage = -3;
-		toByte.getDecalage(decalage);
+		toByte.setDecalage(decalage);
 
 		System.out.println("ASCII value of " + text + " is following"); 
 		System.out.println(toByte.code()); 

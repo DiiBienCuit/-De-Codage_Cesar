@@ -73,6 +73,8 @@ public class Chiffrement{
             		}
             	}while(choix != 1 && choix !=2);
             	System.out.println("----------------------------------------");
+            	
+            	//Coding in cesar
             	if(choix == 1){
             		cod_mode = "[CESAR]";
                 	do{
@@ -84,9 +86,10 @@ public class Chiffrement{
             		cod_mode = "[VIGENERE]";
             		do{
             			cle = sc.nextLine();
+            			cle = cle.toUpperCase();
+                        System.out.println(cle);
                         System.out.println(cod_mode+ " Entrez votre cle (en alphabet):");    
-                        cle = cle.toUpperCase();
-                        //System.out.println(cle);
+                        
                     }while(!cle.matches("[A-Za-z]+"));
             	}else{
             		System.out.println("Why you are here?");	
@@ -94,7 +97,6 @@ public class Chiffrement{
             	System.out.println("----------------------------------------");
             	System.out.println(cod_mode + " Importer le fichier à coder:");
                 try {
-                	
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                     ex.printStackTrace();
@@ -110,7 +112,7 @@ public class Chiffrement{
 		//define and add the java frame for GUI
         JFrame frame = new JFrame("Codage Cesar & Vigenere");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new TestPane(decalage,cle,choix));
+        frame.add(new TestPane(decalage,cle,choix,1));
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
