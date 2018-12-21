@@ -46,26 +46,6 @@ public class StringToAscii {
 		return list;
 	}
 	
-	
-	public String Code_Vignere(ArrayList<Integer> list_msg, ArrayList<Integer> list_cle){
-		
-		StringBuilder sb2 = new StringBuilder() ;
-		int key_length = this.cle.length();
-		//System.out.println(key_length); 
-		for(int i = 0;i<this.sb.length();i++){
-			StringBuilder sb1 = new StringBuilder();
-			sb1.append(this.cle.charAt(i));
-			ArrayList<Integer> list_local = new ArrayList<Integer>();
-			int position = i % key_length;
-			list_local.add(list_msg.get(i));
-			StringToAscii local = new StringToAscii(sb1);
-			String char_local = local.AsciiToString(list_local, position);
-			sb2.append(char_local);
-		}
-		String result = sb2.toString();
-		return result;
-	}
-	
 	//A-Z = 65-90
 	//a-z = 97 -122
 	//function turn the ascii code to chars, then return the coded message
