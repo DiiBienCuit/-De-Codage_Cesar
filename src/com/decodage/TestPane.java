@@ -117,7 +117,8 @@ import javax.swing.filechooser.FileFilter;
 	                            		StringBuilder sb_result = new StringBuilder("");
 	                            		
 	                            		for(int i = 0; i < cle.length();i++){
-	                            			list_cle.add((int)cle.charAt(i)-65);
+	                            			int position = (int)cle.charAt(i);
+	                            			list_cle.add(position - 65);
 	                            		}
 	                            		
 	                            		int key_size = list_cle.size();
@@ -132,7 +133,7 @@ import javax.swing.filechooser.FileFilter;
 	                            			StringToAscii toByte_local = new StringToAscii(sb_local);
 	                            			toByte_local.setDecalage(decalage_local);
 	                            			list_local = toByte_local.code();
-	    	 	                    		String result_local = toByte.AsciiToString(list_local,decalage);
+	    	 	                    		String result_local = toByte.AsciiToString(list_local,decalage_local);
 	    	 	                    		sb_result.append(result_local);
 	                            		}
 	                            		String result = sb_result.toString();
@@ -229,12 +230,12 @@ import javax.swing.filechooser.FileFilter;
 	                            			ArrayList<Integer> list_local = new ArrayList<Integer>();
 	                            			sb_local.append(sb.charAt(i));
 	                            			
-	                            			int decalage_local =  - list_cle.get(i % key_size);
+	                            			int decalage_local = list_cle.get(i % key_size);
 	                            			
 	                            			StringToAscii toByte_local = new StringToAscii(sb_local);
-	                            			toByte_local.setDecalage(decalage_local);
+	                            			toByte_local.setDecalage(-decalage_local);
 	                            			list_local = toByte_local.code();
-	    	 	                    		String result_local = toByte.AsciiToString(list_local,decalage);
+	    	 	                    		String result_local = toByte.AsciiToString(list_local,-decalage_local);
 	    	 	                    		sb_result.append(result_local);
 	                            		}
 	                            		String result = sb_result.toString();
@@ -243,8 +244,10 @@ import javax.swing.filechooser.FileFilter;
 		 	                    		textArea.append("votre message apres etre code est:\n");
 		 	                    		textArea.append(result);
 		 	                    		textArea.append("\n");
-	                            		path = "C:\\Users\\I336796\\Desktop\\FileDecoded_vigenere.txt";
+	                            		
+		 	                    		path = "C:\\Users\\I336796\\Desktop\\FileDecoded_vigenere.txt";
 	                            		export(path, decalage, result);
+	                            		
 	                            		textArea.append("\n");
 	                        			textArea.append("----------------------------------------\n");
 	                        			textArea.append("\n");

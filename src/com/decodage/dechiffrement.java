@@ -77,7 +77,7 @@ public class dechiffrement {
 		            			do{
 		            				System.out.println("[Dechiffrement] Entrez la cle (qui sera un entier positive)");
 				            		cle_cesar = sc.nextInt();
-				            		System.out.println(cle_cesar);
+				            		//System.out.println(cle_cesar);
 		            			}while(cle_cesar < 0);
 		            			
 		            			break;
@@ -86,10 +86,10 @@ public class dechiffrement {
 		            				cle_vigenere = sc.nextLine();
 		            				System.out.println("[Dechiffrement] Entrez la cle (qui sera une string)");
 		            				cle_vigenere = cle_vigenere.toUpperCase();
-				            		System.out.println(cle_cesar);
-		            			}while(cle_cesar < 0);
-		            			
-		            			System.out.println("Je pourrais pas vous aider sur ça pour l'instant :(");
+				            		
+		            			}while(!cle_vigenere.matches("[A-Za-z]+"));
+		            			System.out.println(cle_vigenere);
+		            			//System.out.println("Je pourrais pas vous aider sur ça pour l'instant :(");
 		            			break;
 		            		default: break;
 		            		}
