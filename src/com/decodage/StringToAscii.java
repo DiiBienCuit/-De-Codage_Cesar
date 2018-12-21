@@ -18,17 +18,30 @@ public class StringToAscii {
 		this.sb = sb;
 	}
 	
-	//function to set the decalage entered by user
+	/*
+	 * function to set the decalage entered by user
+	 * @param decalage entered by the user
+	 */
+	
 	public void setDecalage(int decalage){
 		this.decalage = decalage;
 	} 
 	
-	//function to set the vigenere key entered by user
+	/*
+	 * function to set the vigenere key entered by user
+	 * @param key entered by the user 
+	 */
+	
 	public void setCle(String cle){
 		this.cle = cle;
 	}
 	
-	public ArrayList getCleDecalage(){
+	
+	/*
+	 * function to get the decalage
+	 * @return decalage entered by the user 
+	 */
+	public ArrayList getCleDecalage(){	
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for(int i = 0;i<this.cle.length();i++){
 			int ascii = (int)this.cle.charAt(i);
@@ -36,6 +49,7 @@ public class StringToAscii {
 		}
 		return list;
 	}
+	
 	//function to code the message by turning to ascii code first
 	public ArrayList code() {
 		String sb2 = this.sb.toString();
@@ -48,7 +62,7 @@ public class StringToAscii {
 	
 	//A-Z = 65-90
 	//a-z = 97 -122
-	//function turn the ascii code to chars, then return the coded message
+	//Function turn the ascii code to chars, then return the coded message
 	public String AsciiToString(ArrayList<Integer> list,int decalage){
 		StringBuilder sb1 = new StringBuilder() ;
 		int isMaj;
@@ -166,7 +180,7 @@ public class StringToAscii {
 		return decalage;
 	}
 	
-	//test main function
+	//main function for test
 	public static void main(String args[]) throws ParseException {
 		StringBuilder text= new StringBuilder(); 
 		text.append("try to code me!");

@@ -30,15 +30,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 
-/*
- * @TO DO
- * test pane add cases for decoding
- * add for cesar whether you know the decalage?
- * add coding vigenere
- * add decoding vigenere
- * add whether you know the key? Start from the case tht we know the key
- */
-
 
 //main function for code message using methode Cesar
 public class Chiffrement{
@@ -61,7 +52,6 @@ public class Chiffrement{
             	Scanner sc = new Scanner(System.in);
             	do{
             		System.out.println("------------------MENU------------------");
-        			
             		System.out.println("1: Codage Cesar");
             		System.out.println("2: Codage Veginere");
             		System.out.println("----------------------------------------");
@@ -69,7 +59,7 @@ public class Chiffrement{
             		choix = sc.nextInt();
             		if(choix != 1 && choix !=2){
             			System.out.println("---!---!---!---ERROR---!---!---!---");
-            			System.out.println("Veuillez entrez integer 1 ou 2!!");
+            			System.out.println("Veuillez entrer integer 1 ou 2!!");
             		}
             	}while(choix != 1 && choix !=2);
             	System.out.println("----------------------------------------");
@@ -85,11 +75,14 @@ public class Chiffrement{
             	}else if(choix == 2){
             		cod_mode = "[VIGENERE]";
             		do{
+
+                        System.out.println(cod_mode+ " Entrez votre cle (en alphabet):");   
             			cle = sc.nextLine();
-            			cle = cle.toUpperCase();
-                        System.out.println(cle);
-                        System.out.println(cod_mode+ " Entrez votre cle (en alphabet):");    
-                        
+            			//cle = cle.toUpperCase();
+                        if(!cle.matches("[A-Za-z]+")){
+                        	System.out.println("---!---!---!---ERROR---!---!---!---");
+                        	System.out.println("Veuillez entrer une clé en alphabet!");
+                        }
                     }while(!cle.matches("[A-Za-z]+"));
             	}else{
             		System.out.println("Why you are here?");	

@@ -103,7 +103,7 @@ import javax.swing.filechooser.FileFilter;
 	 	                    		textArea.append(result);
 	 	                    		//path  ="..\\..\\Fichier_txt\\FileCoded_cesar.txt";
 	 	                    		path = "C:\\Users\\I336796\\Desktop\\FileCoded_cesar.txt";
-	 	                    		export(path, decalage,result); 
+	 	                    		export(path,result); 
 	 	                    		textArea.append("\n");
 	 	                    		textArea.append("----------------------------------------\n");
 	 	                    		textArea.append("\n");
@@ -143,7 +143,7 @@ import javax.swing.filechooser.FileFilter;
 		 	                    		textArea.append(result);
 		 	                    		textArea.append("\n");
 	                            		path = "C:\\Users\\I336796\\Desktop\\FileCoded_vigenere.txt";
-	                            		export(path, decalage, result);
+	                            		export(path, result);
 	                            		textArea.append("\n");
 	                        			textArea.append("----------------------------------------\n");
 	                        			textArea.append("\n");
@@ -175,10 +175,10 @@ import javax.swing.filechooser.FileFilter;
 	    	 	                    		textArea.append("Avec un decalage de " + decalage + ", \n");
 	    	 	                    		textArea.append("votre message apres etre code est:\n");
 	    	 	                    		textArea.append("\n");
-	    	 	                    		String result = toByte.AsciiToString(list,decalage);
+	    	 	                    		String result = toByte.AsciiToString(list,-decalage);
 	    	 	                    		textArea.append(result);
 	    	 	                    		
-	    	 	                    		export(path, -decalage,result);
+	    	 	                    		export(path,result);
 	    	 	                    		textArea.append("\n");
 	    	 	                    		textArea.append("----------------------------------------\n");
 	    	 	                    		textArea.append("\n");
@@ -205,7 +205,7 @@ import javax.swing.filechooser.FileFilter;
 	    		                    		System.out.println("Votre message apres etre dechiffre:\n"); 
 	    		                    		String result = toByte.AsciiToString(list,dec);
 	    		                    		System.out.println(result); 
-	    		                    		export(path, dec, result);
+	    		                    		export(path,result);
 	    		                    		textArea.append("\n");
 	    		                			textArea.append("----------------------------------------\n");
 	    		                			textArea.append("\n");
@@ -246,7 +246,7 @@ import javax.swing.filechooser.FileFilter;
 		 	                    		textArea.append("\n");
 	                            		
 		 	                    		path = "C:\\Users\\I336796\\Desktop\\FileDecoded_vigenere.txt";
-	                            		export(path, decalage, result);
+	                            		export(path, result);
 	                            		
 	                            		textArea.append("\n");
 	                        			textArea.append("----------------------------------------\n");
@@ -272,7 +272,7 @@ import javax.swing.filechooser.FileFilter;
             });
         }
     
-    public void export(String path, int decalage, String result){
+    public void export(String path, String result){
 		try{
 			File r = new File(path);
 			FileWriter pw = new FileWriter(r);
