@@ -99,13 +99,55 @@ import javax.swing.filechooser.FileFilter;
 	 	                    		textArea.append("Avec un decalage de " + decalage + ", \n");
 	 	                    		textArea.append("votre message apres etre code est:\n");
 	 	                    		textArea.append("\n");
-	 	                    		textArea.append(toByte.AsciiToString(list));
+	 	                    		String result = toByte.AsciiToString(list,decalage);
+	 	                    		textArea.append(result);
 	 	                    		//path  ="..\\..\\Fichier_txt\\FileCoded_cesar.txt";
 	 	                    		path = "C:\\Users\\I336796\\Desktop\\FileCoded_cesar.txt";
+	 	                    		export(path, decalage,result); 
+	 	                    		textArea.append("\n");
+	 	                    		textArea.append("----------------------------------------\n");
+	 	                    		textArea.append("\n");
+	 	                    		textArea.append("Fichier avec ce message est genere!\n");
+	 	                    		System.out.println("Fichier généré avec succes à: "+ path);
 	                                }
+	                            	
 	                            	//coding in vigenere	  
 	                            	else if (choix == 2){
+	                            		ArrayList<Integer> list_cle = new ArrayList<Integer>();
+	                            		StringBuilder sb_result = new StringBuilder("");
+	                            		
+	                            		for(int i = 0; i < cle.length();i++){
+	                            			list_cle.add((int)cle.charAt(i)-65);
+	                            		}
+	                            		
+	                            		int key_size = list_cle.size();
+	                            		
+	                            		for(int i = 0; i<sb.length();i++){
+	                            			StringBuilder sb_local = new StringBuilder("");
+	                            			ArrayList<Integer> list_local = new ArrayList<Integer>();
+	                            			sb_local.append(sb.charAt(i));
+	                            			
+	                            			int decalage_local =  list_cle.get(i % key_size);
+	                            			
+	                            			StringToAscii toByte_local = new StringToAscii(sb_local);
+	                            			toByte_local.setDecalage(decalage_local);
+	                            			list_local = toByte_local.code();
+	    	 	                    		String result_local = toByte.AsciiToString(list_local,decalage);
+	    	 	                    		sb_result.append(result_local);
+	                            		}
+	                            		String result = sb_result.toString();
+	                            		textArea.append("\n");
+		 	                    		textArea.append("----------------------------------------\n");
+		 	                    		textArea.append("votre message apres etre code est:\n");
+		 	                    		textArea.append(result);
+		 	                    		textArea.append("\n");
 	                            		path = "C:\\Users\\I336796\\Desktop\\FileCoded_vigenere.txt";
+	                            		export(path, decalage, result);
+	                            		textArea.append("\n");
+	                        			textArea.append("----------------------------------------\n");
+	                        			textArea.append("\n");
+	                        			textArea.append("Fichier avec ce message est genere!\n");
+	                        			System.out.println("Fichier généré avec succes à: "+ path);
 	                            	//path  ="../../Fichier_txt/FileCoded_vigenere.txt";
 	                            	}else{
 	                            		System.out.println("How did you get here?");
@@ -124,7 +166,7 @@ import javax.swing.filechooser.FileFilter;
 	                            	
 	                            	//cesar
 	                            	if(choix == 1){
-	                            	
+	                            		path = "C:\\Users\\I336796\\Desktop\\FileDecoded_cesar.txt";
 	                            		//if key knows
 	                            		if(decalage>0){
 	                            			toByte.setDecalage(-decalage);
@@ -132,8 +174,15 @@ import javax.swing.filechooser.FileFilter;
 	    	 	                    		textArea.append("Avec un decalage de " + decalage + ", \n");
 	    	 	                    		textArea.append("votre message apres etre code est:\n");
 	    	 	                    		textArea.append("\n");
-	    	 	                    		textArea.append(toByte.AsciiToString(list));
+	    	 	                    		String result = toByte.AsciiToString(list,decalage);
+	    	 	                    		textArea.append(result);
 	    	 	                    		
+	    	 	                    		export(path, -decalage,result);
+	    	 	                    		textArea.append("\n");
+	    	 	                    		textArea.append("----------------------------------------\n");
+	    	 	                    		textArea.append("\n");
+	    	 	                    		textArea.append("Fichier avec ce message est genere!\n");
+	    	 	                    		System.out.println("Fichier généré avec succes à: "+ path);
 	                            		}else{
 	                            			//if no key is given
 	                            			//calculate the frequence
@@ -145,43 +194,71 @@ import javax.swing.filechooser.FileFilter;
 	    		                    		System.out.println("----------------------------------------"); 
 	    		                    		textArea.append("\n");
 	    		                    		list = toByte.code();
-	    		                    		
+	    		                    		int dec = toByte.calculateDecalage();
 	    		                    		//show the message decoded
 	    		                    		textArea.append("Votre message apres etre dechiffre est:\n");
 	    		                    		textArea.append("\n");
-	    		                    		textArea.append(toByte.AsciiToString(list));
+	    		                    		textArea.append(toByte.AsciiToString(list,dec));
 	    		                    		System.out.println("\n"); 
 	    		                    		
 	    		                    		System.out.println("Votre message apres etre dechiffre:\n"); 
-	    		                    		System.out.println(toByte.AsciiToString(list)); 
+	    		                    		String result = toByte.AsciiToString(list,dec);
+	    		                    		System.out.println(result); 
+	    		                    		export(path, dec, result);
+	    		                    		textArea.append("\n");
+	    		                			textArea.append("----------------------------------------\n");
+	    		                			textArea.append("\n");
+	    		                			textArea.append("Fichier avec ce message est genere!\n");
+	    		                			System.out.println("Fichier généré avec succes à: "+ path);
 	                            		}
 	                            		System.out.println("----------------------------------------"); 
 	                            		//path = "./decodage/Fichier_txt/FileDecoded_cesar.txt";
-	                            		path = "C:\\Users\\I336796\\Desktop\\FileDecoded_cesar.txt";
-	                            	}else if(choix == 2){
 	                            		
+	                            	}else if(choix == 2){
+	                            		ArrayList<Integer> list_cle = new ArrayList<Integer>();
+	                            		StringBuilder sb_result = new StringBuilder("");
+	                            		
+	                            		for(int i = 0; i < cle.length();i++){
+	                            			list_cle.add((int)cle.charAt(i)-65);
+	                            		}
+	                            		
+	                            		int key_size = list_cle.size();
+	                            		
+	                            		for(int i = 0; i<sb.length();i++){
+	                            			StringBuilder sb_local = new StringBuilder("");
+	                            			ArrayList<Integer> list_local = new ArrayList<Integer>();
+	                            			sb_local.append(sb.charAt(i));
+	                            			
+	                            			int decalage_local =  - list_cle.get(i % key_size);
+	                            			
+	                            			StringToAscii toByte_local = new StringToAscii(sb_local);
+	                            			toByte_local.setDecalage(decalage_local);
+	                            			list_local = toByte_local.code();
+	    	 	                    		String result_local = toByte.AsciiToString(list_local,decalage);
+	    	 	                    		sb_result.append(result_local);
+	                            		}
+	                            		String result = sb_result.toString();
+	                            		textArea.append("\n");
+		 	                    		textArea.append("----------------------------------------\n");
+		 	                    		textArea.append("votre message apres etre code est:\n");
+		 	                    		textArea.append(result);
+		 	                    		textArea.append("\n");
 	                            		path = "C:\\Users\\I336796\\Desktop\\FileDecoded_vigenere.txt";
+	                            		export(path, decalage, result);
+	                            		textArea.append("\n");
+	                        			textArea.append("----------------------------------------\n");
+	                        			textArea.append("\n");
+	                        			textArea.append("Fichier avec ce message est genere!\n");
+	                        			System.out.println("Fichier généré avec succes à: "+ path);
+	                            		//TO DO
+	                            		//System.out.println("Je pourrais pas vous aider sur ça pour l'instant :(");
 	                            	}
 		                    		
 	                            }
 	                          
 	                            textArea.setCaretPosition(0);
 	                    		//export the final file coded
-	                    		try{
-	                    				File r = new File(path);
-	                    				FileWriter pw = new FileWriter(r);
-	                    				pw.write(toByte.AsciiToString(list));
-	                    				pw.flush();
-	                    		        pw.close();
-	                    				textArea.append("\n");
-	                    				textArea.append("----------------------------------------\n");
-	                    				textArea.append("\n");
-	                    				textArea.append("Fichier avec ce message est genere!\n");
-	                    				System.out.println("Fichier généré avec succes à: "+ path);
-	                    				}catch(IOException e2){
-	                    					System.err.println(e2);
-	                    				}
-	                    		
+	                
                             } catch (IOException exp) {
                                 exp.printStackTrace();
                                 JOptionPane.showMessageDialog(TestPane.this, "Failed to read file", "Error", JOptionPane.ERROR_MESSAGE);
@@ -191,12 +268,18 @@ import javax.swing.filechooser.FileFilter;
                 }
             });
         }
-
-    public void cesar(){
-    	
-    }
     
-    public void export(){
-    	
+    public void export(String path, int decalage, String result){
+		try{
+			File r = new File(path);
+			FileWriter pw = new FileWriter(r);
+			pw.write(result);
+			pw.flush();
+	        pw.close();
+		
+			}catch(IOException e2){
+				System.err.println(e2);
+			}
+	
     }
 }

@@ -11,13 +11,11 @@ import java.io.*;
 public class StringToAscii {
 	private StringBuilder sb;
 	private int decalage;
-	private char[] frequence;
+	private String cle;
 	
 	//constructor
 	public StringToAscii(StringBuilder sb) {
 		this.sb = sb;
-		char[] frequence = new char[26];
-	//	frequence = ["E","A","S","I","N","T","R","L","U","O","D","C","P","M","V","G","F","B","Q","H","X","J","Y","Z","K","W"];
 	}
 	
 	//function to set the decalage entered by user
@@ -25,6 +23,19 @@ public class StringToAscii {
 		this.decalage = decalage;
 	} 
 	
+	//function to set the vigenere key entered by user
+	public void setCle(String cle){
+		this.cle = cle;
+	}
+	
+	public ArrayList getCleDecalage(){
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int i = 0;i<this.cle.length();i++){
+			int ascii = (int)this.cle.charAt(i);
+			list.add(ascii-65);
+		}
+		return list;
+	}
 	//function to code the message by turning to ascii code first
 	public ArrayList code() {
 		String sb2 = this.sb.toString();
@@ -35,10 +46,30 @@ public class StringToAscii {
 		return list;
 	}
 	
+	
+	public String Code_Vignere(ArrayList<Integer> list_msg, ArrayList<Integer> list_cle){
+		
+		StringBuilder sb2 = new StringBuilder() ;
+		int key_length = this.cle.length();
+		//System.out.println(key_length); 
+		for(int i = 0;i<this.sb.length();i++){
+			StringBuilder sb1 = new StringBuilder();
+			sb1.append(this.cle.charAt(i));
+			ArrayList<Integer> list_local = new ArrayList<Integer>();
+			int position = i % key_length;
+			list_local.add(list_msg.get(i));
+			StringToAscii local = new StringToAscii(sb1);
+			String char_local = local.AsciiToString(list_local, position);
+			sb2.append(char_local);
+		}
+		String result = sb2.toString();
+		return result;
+	}
+	
 	//A-Z = 65-90
 	//a-z = 97 -122
 	//function turn the ascii code to chars, then return the coded message
-	public String AsciiToString(ArrayList<Integer> list){
+	public String AsciiToString(ArrayList<Integer> list,int decalage){
 		StringBuilder sb1 = new StringBuilder() ;
 		int isMaj;
 		for(int i : list){
@@ -52,7 +83,7 @@ public class StringToAscii {
 				//char is not an alphabet char
 				isMaj = 2;
 			}
-			int j = i + this.decalage;
+			int j = i + decalage;
 
 			//check if its out of the range
 			switch(isMaj){
@@ -131,6 +162,8 @@ public class StringToAscii {
 	}
 	
 	//function to calculate the decalage
+	//frequence = ["E","A","S","I","N","T","R","L","U","O","D","C","P","M","V","G","F","B","Q","H","X","J","Y","Z","K","W"];
+	//Frequence for the language in French 
 	public int calculateDecalage(){
 		int decalage;
 		double maxFrequency = 0;
@@ -167,8 +200,10 @@ public class StringToAscii {
 		System.out.println(toByte.code()); 
 		list = toByte.code();
 		System.out.println("after:"); 
-		System.out.println(toByte.AsciiToString(list)); 
+		System.out.println(toByte.AsciiToString(list,decalage)); 
 		
 		}
+	
+	
 	}
 
